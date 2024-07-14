@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho de Compras</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        header {
+            background-color: #080808;
+            padding: 1rem;
+            color: #fff;
+        }
+
+        .navbar-nav {
+    display: flex; /* Flexbox para layout de navegação horizontal */
+    gap: 1rem; /* Espaçamento entre os itens de navegação */
+}
+
+.nav-item {
+    list-style: none; /* Remove a lista padrão dos itens */
+}
+
+.nav-link {
+    color: #fff !important; /* Define a cor do texto como branca */
+    padding: 0.5rem 1rem; /* Espaçamento interno para melhor aparência */
+    text-decoration: none; /* Remove o sublinhado do link */
+    font-weight: 500; /* Fonte um pouco mais espessa */
+}
+
+.nav-link.active {
+    font-weight: 700; /* Destaca o link ativo */
+}
+
+.nav-link:hover {
+    color: #ddd; /* Cor de texto mais clara ao passar o mouse */
+}
+
+.nav-link.disabled {
+    color: #6c757d; /* Cor para o link desativado */
+}
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            background-color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #000;
+        }
+
+        .d-flex {
+            text-align: right;
+        }
+
+        .container-fluid {
+            background-color: #080808;
+            padding: 1rem;
+            color: #fff;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px;
+        }
+
+        .image-container img {
+            flex: 1;
+            max-width: 30%;
+            border-radius: 10px;
+            box-shadow: 0 5px 8px rgb(118, 118, 118);
+            margin: 0 10px;
+        }
+
+        main {
+            padding: 2rem;
+        }
+
+        section {
+            margin-bottom: 2rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Ajusta o número de colunas baseado no tamanho do item e da tela */
+            gap: 20px;
+            justify-content: center; /* Centraliza os itens da grid horizontalmente */
+        }
+
+        .products-grid .product {
+            border-radius: 13px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+
+        .product img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        button {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+        }
+        button:hover{
+            background-color: #000;
+        }
+        #cart {
+    width: 100%;
+    max-width: 1200px; /* Largura máxima para manter o layout bonito em telas grandes */
+    margin: 2rem auto; /* Margem automática para centralizar a seção */
+    padding: 1rem;
+    background-color: #fff; /* Cor de fundo branca para contraste com a borda */
+    border-radius: 10px; /* Borda arredondada */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra leve para destaque */
+}
+
+#cart h2 {
+    text-align: center; /* Centraliza o título */
+    margin-bottom: 1rem; /* Espaçamento abaixo do título */
+    color: #333; /* Cor do texto do título */
+}
+
+#cart-items {
+    width: 100%;
+    border-collapse: collapse; /* Remove o espaçamento entre as células */
+    margin-bottom: 1rem; /* Espaçamento abaixo da tabela */
+}
+
+#cart-items th, #cart-items td {
+    padding: 0.75rem; /* Espaçamento interno das células */
+    text-align: left; /* Alinhamento do texto */
+    border-bottom: 1px solid #ddd; /* Borda abaixo das células */
+}
+
+#cart-items th {
+    background-color: #f8f9fa; /* Cor de fundo para o cabeçalho da tabela */
+    color: #333; /* Cor do texto do cabeçalho */
+}
+
+#cart-items tr:last-child td {
+    border-bottom: none; /* Remove a borda abaixo da última linha */
+}
+
+#cart-summary {
+    text-align: center; /* Centraliza o conteúdo do resumo do carrinho */
+    margin-top: 1rem; /* Espaçamento acima do resumo */
+}
+
+#cart-summary p {
+    font-size: 1.2rem; /* Aumenta o tamanho da fonte para o total */
+    font-weight: bold; /* Torna o texto do total em negrito */
+    color: #333; /* Cor do texto do total */
+    margin-bottom: 1rem; /* Espaçamento abaixo do total */
+}
+
+#cart-summary button {
+    background-color: #28a745; /* Cor de fundo verde */
+    color: #fff; /* Cor do texto */
+    border: none; /* Remove a borda padrão */
+    border-radius: 5px; /* Borda arredondada */
+    padding: 0.75rem 1.5rem; /* Espaçamento interno do botão */
+    font-size: 1rem; /* Tamanho da fonte do botão */
+    cursor: pointer; /* Altera o cursor para mãozinha */
+    transition: background-color 0.3s; /* Transição suave para a cor de fundo */
+}
+
+#cart-summary button:hover {
+    background-color: #218838; /* Cor do botão quando o mouse está sobre ele */
+}
+
+#cart-summary button:disabled {
+    background-color: #6c757d; /* Cor para quando o botão está desativado */
+    cursor: not-allowed; /* Cursor de não permitido */
+}
+
+
+    </style>
+</head>
+<body>
+    <header class="container-fluid">
+        <nav class="navbar bg-body-tertiary">
+            <a class="navbar-brand" href="#">LJ</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Novidades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Produtos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" aria-disabled="true">Carrinho</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </nav>
+    </header>
+
+    <div>
+        <h1 style="font-size: 25px;">Novidades</h1>
+    </div>
+
+    <div class="image-container">
+        <img src="https://www.quadrorama.com.br/wp-content/uploads/2018/05/quadro-com-foto-imagem-personalizada.png" alt="imagem 1">
+        <img src="https://www.quadrorama.com.br/wp-content/uploads/2018/05/quadro-com-foto-imagem-personalizada.png" alt="imagem 3">
+        <img src="https://www.quadrorama.com.br/wp-content/uploads/2018/05/quadro-com-foto-imagem-personalizada.png" alt="imagem 2">
+    </div>
+
+    <main>
+        <h2 class="text-align: center">Produtos</h2>
+        <section id="products">
+            <div class="products-grid">
+                <div class="product">
+                    <img src="https://th.bing.com/th/id/OIP.fypAVv_cZhbTs8LULmizWwAAAA?w=123&h=180&c=7&r=0&o=5&pid=1.7" alt="">
+                    <h3>Produto 1</h3>
+                    <p>Descrição do produto 1.</p>
+                    <button class="add-to-cart" data-id="1">Adicionar ao Carrinho</button>
+                </div>
+                <div class="product">
+                    <img src="https://th.bing.com/th/id/OIP.fypAVv_cZhbTs8LULmizWwAAAA?w=123&h=180&c=7&r=0&o=5&pid=1.7" alt="">
+                    <h3>Produto 2</h3>
+                    <p>Descrição do produto 2.</p>
+                    <button class="add-to-cart" data-id="2">Adicionar ao Carrinho</button>
+                </div>
+                <div class="product">
+                    <img src="https://th.bing.com/th/id/OIP.fypAVv_cZhbTs8LULmizWwAAAA?w=123&h=180&c=7&r=0&o=5&pid=1.7" alt="">
+                    <h3>Produto 3</h3>
+                    <p>Descrição do produto 3.</p>
+                    <button class="add-to-cart" data-id="3">Adicionar ao Carrinho</button>
+                </div>
+                <div class="product">
+                    <img src="https://th.bing.com/th/id/OIP.fypAVv_cZhbTs8LULmizWwAAAA?w=123&h=180&c=7&r=0&o=5&pid=1.7" alt="">
+                    <h3>Produto 4</h3>
+                    <p>Descrição do produto 4.</p>
+                    <button class="add-to-cart" data-id="4">Adicionar ao Carrinho</button>
+                </div>
+                <div class="product">
+                    <img src="https://th.bing.com/th/id/OIP.fypAVv_cZhbTs8LULmizWwAAAA?w=123&h=180&c=7&r=0&o=5&pid=1.7" alt="">
+                    <h3>Produto 5</h3>
+                    <p>Descrição do produto 5.</p>
+                    <button class="add-to-cart" data-id="5">Adicionar ao Carrinho</button>
+                </div>
+                <div class="product">
+                    <img src="https://th.bing.com/th/id/OIP.fypAVv_cZhbTs8LULmizWwAAAA?w=123&h=180&c=7&r=0&o=5&pid=1.7" alt="">
+                    <h3>Produto 6</h3>
+                    <p>Descrição do produto 6.</p>
+                    <button class="add-to-cart" data-id="6">Adicionar ao Carrinho</button>
+                </div>
+                <div class="product">
+                    <img src="https://th.bing.com/th/id/OIP.fypAVv_cZhbTs8LULmizWwAAAA?w=123&h=180&c=7&r=0&o=5&pid=1.7" alt="">
+                    <h3>Produto 7</h3>
+                    <p>Descrição do produto 7.</p>
+                    <button class="add-to-cart" data-id="7">Adicionar ao Carrinho</button>
+                </div>
+                <div class="product">
+                    <img src="https://th.bing.com/th/id/OIP.fypAVv_cZhbTs8LULmizWwAAAA?w=123&h=180&c=7&r=0&o=5&pid=1.7" alt="">
+                    <h3>Produto 8</h3>
+                    <p>Descrição do produto 8.</p>
+                    <button class="add-to-cart" data-id="8">Adicionar ao Carrinho</button>
+                </div>
+                <div class="product">
+                    <img src="https://th.bing.com/th/id/OIP.fypAVv_cZhbTs8LULmizWwAAAA?w=123&h=180&c=7&r=0&o=5&pid=1.7" alt="">
+                    <h3>Produto 9</h3>
+                    <p>Descrição do produto 9.</p>
+                    <button class="add-to-cart" data-id="9">Adicionar ao Carrinho</button>
+                </div>
+                <div class="product">
+                    <img src="https://th.bing.com/th/id/OIP.fypAVv_cZhbTs8LULmizWwAAAA?w=123&h=180&c=7&r=0&o=5&pid=1.7" alt="">
+                    <h3>Produto 10</h3>
+                    <p>Descrição do produto 10.</p>
+                    <button class="add-to-cart" data-id="10">Adicionar ao Carrinho</button>
+                </div>
+                <div class="product">
+                    <img src="https://th.bing.com/th/id/OIP.fypAVv_cZhbTs8LULmizWwAAAA?w=123&h=180&c=7&r=0&o=5&pid=1.7" alt="">
+                    <h3>Produto 11</h3>
+                    <p>Descrição do produto 11.</p>
+                    <button class="add-to-cart" data-id="10">Adicionar ao Carrinho</button>
+                </div>
+                <div class="product">
+                    <img src="https://th.bing.com/th/id/OIP.fypAVv_cZhbTs8LULmizWwAAAA?w=123&h=180&c=7&r=0&o=5&pid=1.7" alt="">
+                    <h3>Produto 12</h3>
+                    <p>Descrição do produto 12.</p>
+                    <button class="add-to-cart" data-id="10">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="cart">
+            <h2>Seu Carrinho</h2>
+            <table id="cart-items">
+                <thead>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Quantidade</th>
+                        <th>Preço</th>
+                        <th>Total</th>
+                        <th>Remover</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Itens do carrinho serão adicionados aqui via JavaScript -->
+                </tbody>
+            </table>
+            <div id="cart-summary">
+                <p>Total: <span id="cart-total">R$0,00</span></p>
+                <button id="checkout">Finalizar Compra</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
