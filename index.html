@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrinho de Compras</title>
+    <title>Loja</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,328 +13,376 @@
         }
 
         header {
-            background-color: #080808;
-            padding: 1rem;
+            background-color: #333;
             color: #fff;
-        }
-
-        .navbar-nav {
-    display: flex; /* Flexbox para layout de navegação horizontal */
-    gap: 1rem; /* Espaçamento entre os itens de navegação */
-}
-
-.nav-item {
-    list-style: none; /* Remove a lista padrão dos itens */
-}
-
-.nav-link {
-    color: #fff !important; /* Define a cor do texto como branca */
-    padding: 0.5rem 1rem; /* Espaçamento interno para melhor aparência */
-    text-decoration: none; /* Remove o sublinhado do link */
-    font-weight: 500; /* Fonte um pouco mais espessa */
-}
-
-.nav-link.active {
-    font-weight: 700; /* Destaca o link ativo */
-}
-
-.nav-link:hover {
-    color: #ddd; /* Cor de texto mais clara ao passar o mouse */
-}
-
-.nav-link.disabled {
-    color: #6c757d; /* Cor para o link desativado */
-}
-
-        nav {
+            padding: 10px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .navbar-brand {
-            background-color: #fff;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            text-decoration: none;
-            color: #000;
-        }
-
-        .d-flex {
-            text-align: right;
-        }
-
-        .container-fluid {
-            background-color: #080808;
-            padding: 1rem;
-            color: #fff;
-        }
-
-        .image-container {
-            display: flex;
-            justify-content: space-between;
-            margin: 15px;
-        }
-
-        .image-container img {
-            flex: 1;
-            max-width: 30%;
-            border-radius: 10px;
-            box-shadow: 0 5px 8px rgb(118, 118, 118);
-            margin: 0 10px;
-        }
-
-        main {
-            padding: 2rem;
-        }
-
-        section {
-            margin-bottom: 2rem;
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Ajusta o número de colunas baseado no tamanho do item e da tela */
-            gap: 20px;
-            justify-content: center; /* Centraliza os itens da grid horizontalmente */
-        }
-
-        .products-grid .product {
-            border-radius: 13px;
-            border: 1px solid #ddd;
-            padding: 10px;
-            background-color: #f9f9f9;
-            text-align: center;
-        }
-
-        .product img {
-            max-width: 100%;
+        header img {
+            max-width: 100px;
             height: auto;
         }
 
-        button {
+        header nav ul {
+            list-style-type: none;
+            display: flex;
+        }
+
+        header nav ul li {
+            margin-right: 20px;
+        }
+
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        header nav form {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+        }
+
+        header nav form input[type="search"] {
+            padding: 8px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        header nav form button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
             background-color: #28a745;
             color: #fff;
-            border: none;
-            border-radius: 10px;
-            padding: 0.5rem 1rem;
             cursor: pointer;
         }
-        button:hover{
-            background-color: #000;
+
+        header nav form button:hover {
+            background-color: #218838;
         }
-        #cart {
-    width: 100%;
-    max-width: 1200px; /* Largura máxima para manter o layout bonito em telas grandes */
-    margin: 2rem auto; /* Margem automática para centralizar a seção */
-    padding: 1rem;
-    background-color: #fff; /* Cor de fundo branca para contraste com a borda */
-    border-radius: 10px; /* Borda arredondada */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra leve para destaque */
-}
 
-#cart h2 {
-    text-align: center; /* Centraliza o título */
-    margin-bottom: 1rem; /* Espaçamento abaixo do título */
-    color: #333; /* Cor do texto do título */
-}
+        .container {
+            padding: 20px;
+        }
 
-#cart-items {
-    width: 100%;
-    border-collapse: collapse; /* Remove o espaçamento entre as células */
-    margin-bottom: 1rem; /* Espaçamento abaixo da tabela */
-}
+        .novidades, .products {
+            margin-bottom: 20px;
+        }
 
-#cart-items th, #cart-items td {
-    padding: 0.75rem; /* Espaçamento interno das células */
-    text-align: left; /* Alinhamento do texto */
-    border-bottom: 1px solid #ddd; /* Borda abaixo das células */
-}
+        .novidades {
+            text-align: center;
+        }
 
-#cart-items th {
-    background-color: #f8f9fa; /* Cor de fundo para o cabeçalho da tabela */
-    color: #333; /* Cor do texto do cabeçalho */
-}
+        .novidades h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
 
-#cart-items tr:last-child td {
-    border-bottom: none; /* Remove a borda abaixo da última linha */
-}
+        .novidades .novidade-item {
+            display: inline-block;
+            margin: 0 10px;
+        }
 
-#cart-summary {
-    text-align: center; /* Centraliza o conteúdo do resumo do carrinho */
-    margin-top: 1rem; /* Espaçamento acima do resumo */
-}
+        .novidades img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
 
-#cart-summary p {
-    font-size: 1.2rem; /* Aumenta o tamanho da fonte para o total */
-    font-weight: bold; /* Torna o texto do total em negrito */
-    color: #333; /* Cor do texto do total */
-    margin-bottom: 1rem; /* Espaçamento abaixo do total */
-}
+        .novidades a {
+            display: block;
+            margin-top: 10px;
+            font-size: 16px;
+            color: #007bff;
+            text-decoration: none;
+        }
 
-#cart-summary button {
-    background-color: #28a745; /* Cor de fundo verde */
-    color: #fff; /* Cor do texto */
-    border: none; /* Remove a borda padrão */
-    border-radius: 5px; /* Borda arredondada */
-    padding: 0.75rem 1.5rem; /* Espaçamento interno do botão */
-    font-size: 1rem; /* Tamanho da fonte do botão */
-    cursor: pointer; /* Altera o cursor para mãozinha */
-    transition: background-color 0.3s; /* Transição suave para a cor de fundo */
-}
+        .novidades a:hover {
+            text-decoration: underline;
+        }
 
-#cart-summary button:hover {
-    background-color: #218838; /* Cor do botão quando o mouse está sobre ele */
-}
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
 
-#cart-summary button:disabled {
-    background-color: #6c757d; /* Cor para quando o botão está desativado */
-    cursor: not-allowed; /* Cursor de não permitido */
-}
+        .product {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            flex: 1 0 30%;
+            box-sizing: border-box;
+            position: relative;
+        }
 
+        .product h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
 
+        .product p {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .product .stars {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .product .stars span {
+            color: gold;
+            margin-right: 2px;
+        }
+
+        .add-to-cart {
+            display: block;
+            width: 100%;
+            text-align: center;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            background-color: #28a745;
+            color: white;
+        }
+
+        .add-to-cart:hover {
+            background-color: #218838;
+        }
+
+        .cart {
+            margin-bottom: 20px;
+        }
+
+        .cart-item {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .remove-from-cart {
+            display: block;
+            width: 100%;
+            text-align: center;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .remove-from-cart:hover {
+            background-color: #c82333;
+        }
+
+        footer {
+            background-color: #f1f1f1;
+            padding: 20px;
+            text-align: center;
+        }
+
+        footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .product {
+                flex: 1 0 48%;
+            }
+
+            .novidades img {
+                width: 150px;
+                height: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product {
+                flex: 1 0 100%;
+            }
+
+            .novidades img {
+                width: 100px;
+                height: 100px;
+            }
+        }
     </style>
 </head>
 <body>
-    <header class="container-fluid">
-        <nav class="navbar bg-body-tertiary">
-            <a class="navbar-brand" href="#">LJ</a>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Novidades</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Produtos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" aria-disabled="true">Carrinho</a>
-                    </li>
-                </ul>
-            </div>
-            
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+    <header>
+        <img src="link-para-seu-logo.jpg" alt="Logo da Loja">
+        <nav>
+            <ul>
+                <li><a href="#novidades">Novidades</a></li>
+                <li><a href="#produtos">Produtos</a></li>
+                <li><a href="#carrinho">Carrinho</a></li>
+            </ul>
+            <form action="#" method="get">
+                <input type="search" placeholder="Pesquisar produtos..." id="search" name="search">
+                <button type="submit">Pesquisar</button>
             </form>
         </nav>
     </header>
 
-    <div>
-        <h1 style="font-size: 25px;">Novidades</h1>
+    <div class="container">
+        <div id="novidades" class="novidades">
+            <h2>Novidades</h2>
+            <div class="novidade-item">
+                <img src="link-para-imagem-roupas.jpg" alt="Roupas">
+                <a href="#roupas">Seção de Roupas</a>
+            </div>
+            <div class="novidade-item">
+                <img src="link-para-imagem-calcados.jpg" alt="Calçados">
+                <a href="#calcados">Seção de Calçados</a>
+            </div>
+            <div class="novidade-item">
+                <img src="link-para-imagem-bolsas.jpg" alt="Bolsas">
+                <a href="#bolsas">Seção de Bolsas</a>
+            </div>
+        </div>
+        <h2 id="produtos">Produtos</h2>
+        <div class="products">
+            <div class="product">
+                <h2>Produto 1</h2>
+                <p>Descrição do Produto 1</p>
+                <div class="stars">
+                    <span>&#9733;</span>
+                    <span>&#9733;</span>
+                    <span>&#9733;</span>
+                    <span>&#9733;</span>
+                    <span>&#9734;</span>
+                </div>
+                <p>Preço: R$ <span class="price">10.00</span></p>
+                <button class="add-to-cart">Adicionar ao Carrinho</button>
+            </div>
+            <div class="product">
+                <h2>Produto 2</h2>
+                <p>Descrição do Produto 2</p>
+                <div class="stars">
+                    <span>&#9733;</span>
+                    <span>&#9733;</span>
+                    <span>&#9733;</span>
+                    <span>&#9734;</span>
+                    <span>&#9734;</span>
+                </div>
+                <p>Preço: R$ <span class="price">20.00</span></p>
+                <button class="add-to-cart">Adicionar ao Carrinho</button>
+            </div>
+            <div class="product">
+                <h2>Produto 3</h2>
+                <p>Descrição do Produto 3</p>
+                <div class="stars">
+                    <span>&#9733;</span>
+                    <span>&#9733;</span>
+                    <span>&#9734;</span>
+                    <span>&#9734;</span>
+                    <span>&#9734;</span>
+                </div>
+                <p>Preço: R$ <span class="price">15.00</span></p>
+                <button class="add-to-cart">Adicionar ao Carrinho</button>
+            </div>
+            <div class="product">
+                <h2>Produto 4</h2>
+                <p>Descrição do Produto 4</p>
+                <div class="stars">
+                    <span>&#9733;</span>
+                    <span>&#9733;</span>
+                    <span>&#9733;</span>
+                    <span>&#9733;</span>
+                    <span>&#9733;</span>
+                </div>
+                <p>Preço: R$ <span class="price">30.00</span></p>
+                <button class="add-to-cart">Adicionar ao Carrinho</button>
+            </div>
+            <div class="product">
+                <h2>Produto 5</h2>
+                <p>Descrição do Produto 5</p>
+                <div class="stars">
+                    <span>&#9733;</span>
+                    <span>&#9733;</span>
+                    <span>&#9733;</span>
+                    <span>&#9733;</span>
+                    <span>&#9734;</span>
+                </div>
+                <p>Preço: R$ <span class="price">25.00</span></p>
+                <button class="add-to-cart">Adicionar ao Carrinho</button>
+            </div>
+            <div class="product">
+                <h2>Produto 6</h2>
+                <p>Descrição do Produto 6</p>
+                <div class="stars">
+                    <span>&#9733;</span>
+                    <span>&#9733;</span>
+                    <span>&#9734;</span>
+                    <span>&#9734;</span>
+                    <span>&#9734;</span>
+                </div>
+                <p>Preço: R$ <span class="price">12.00</span></p>
+                <button class="add-to-cart">Adicionar ao Carrinho</button>
+            </div>
+        </div>
+        <h2 id="carrinho">Carrinho</h2>
+        <div class="cart">
+            <div class="cart-items"></div>
+            <p>Total: R$ <span class="total-price">0.00</span></p>
+        </div>
     </div>
 
-    <div class="image-container">
-        <img src="https://www.quadrorama.com.br/wp-content/uploads/2018/05/quadro-com-foto-imagem-personalizada.png" alt="imagem 1">
-        <img src="https://www.quadrorama.com.br/wp-content/uploads/2018/05/quadro-com-foto-imagem-personalizada.png" alt="imagem 3">
-        <img src="https://www.quadrorama.com.br/wp-content/uploads/2018/05/quadro-com-foto-imagem-personalizada.png" alt="imagem 2">
-    </div>
+    <footer>
+        <p>Endereço da Loja:</p>
+        <p><a href="https://www.google.com/maps/place/R.+dos+Pinheiros,+800+-+Pinheiros,+São+Paulo+-+SP,+05422-001" target="_blank">Rua dos Pinheiros, 800 - São Paulo, SP</a></p>
+        <p>&copy; 2024 Sua Loja</p>
+    </footer>
 
-    <main>
-        <h2 class="text-align: center">Produtos</h2>
-        <section id="products">
-            <div class="products-grid">
-                <div class="product">
-                    <img src="https://th.bing.com/th/id/OIP.fypAVv_cZhbTs8LULmizWwAAAA?w=123&h=180&c=7&r=0&o=5&pid=1.7" alt="">
-                    <h3>Produto 1</h3>
-                    <p>Descrição do produto 1.</p>
-                    <button class="add-to-cart" data-id="1">Adicionar ao Carrinho</button>
-                </div>
-                <div class="product">
-                    <img src="https://th.bing.com/th/id/OIP.fypAVv_cZhbTs8LULmizWwAAAA?w=123&h=180&c=7&r=0&o=5&pid=1.7" alt="">
-                    <h3>Produto 2</h3>
-                    <p>Descrição do produto 2.</p>
-                    <button class="add-to-cart" data-id="2">Adicionar ao Carrinho</button>
-                </div>
-                <div class="product">
-                    <img src="https://th.bing.com/th/id/OIP.fypAVv_cZhbTs8LULmizWwAAAA?w=123&h=180&c=7&r=0&o=5&pid=1.7" alt="">
-                    <h3>Produto 3</h3>
-                    <p>Descrição do produto 3.</p>
-                    <button class="add-to-cart" data-id="3">Adicionar ao Carrinho</button>
-                </div>
-                <div class="product">
-                    <img src="https://th.bing.com/th/id/OIP.fypAVv_cZhbTs8LULmizWwAAAA?w=123&h=180&c=7&r=0&o=5&pid=1.7" alt="">
-                    <h3>Produto 4</h3>
-                    <p>Descrição do produto 4.</p>
-                    <button class="add-to-cart" data-id="4">Adicionar ao Carrinho</button>
-                </div>
-                <div class="product">
-                    <img src="https://th.bing.com/th/id/OIP.fypAVv_cZhbTs8LULmizWwAAAA?w=123&h=180&c=7&r=0&o=5&pid=1.7" alt="">
-                    <h3>Produto 5</h3>
-                    <p>Descrição do produto 5.</p>
-                    <button class="add-to-cart" data-id="5">Adicionar ao Carrinho</button>
-                </div>
-                <div class="product">
-                    <img src="https://th.bing.com/th/id/OIP.fypAVv_cZhbTs8LULmizWwAAAA?w=123&h=180&c=7&r=0&o=5&pid=1.7" alt="">
-                    <h3>Produto 6</h3>
-                    <p>Descrição do produto 6.</p>
-                    <button class="add-to-cart" data-id="6">Adicionar ao Carrinho</button>
-                </div>
-                <div class="product">
-                    <img src="https://th.bing.com/th/id/OIP.fypAVv_cZhbTs8LULmizWwAAAA?w=123&h=180&c=7&r=0&o=5&pid=1.7" alt="">
-                    <h3>Produto 7</h3>
-                    <p>Descrição do produto 7.</p>
-                    <button class="add-to-cart" data-id="7">Adicionar ao Carrinho</button>
-                </div>
-                <div class="product">
-                    <img src="https://th.bing.com/th/id/OIP.fypAVv_cZhbTs8LULmizWwAAAA?w=123&h=180&c=7&r=0&o=5&pid=1.7" alt="">
-                    <h3>Produto 8</h3>
-                    <p>Descrição do produto 8.</p>
-                    <button class="add-to-cart" data-id="8">Adicionar ao Carrinho</button>
-                </div>
-                <div class="product">
-                    <img src="https://th.bing.com/th/id/OIP.fypAVv_cZhbTs8LULmizWwAAAA?w=123&h=180&c=7&r=0&o=5&pid=1.7" alt="">
-                    <h3>Produto 9</h3>
-                    <p>Descrição do produto 9.</p>
-                    <button class="add-to-cart" data-id="9">Adicionar ao Carrinho</button>
-                </div>
-                <div class="product">
-                    <img src="https://th.bing.com/th/id/OIP.fypAVv_cZhbTs8LULmizWwAAAA?w=123&h=180&c=7&r=0&o=5&pid=1.7" alt="">
-                    <h3>Produto 10</h3>
-                    <p>Descrição do produto 10.</p>
-                    <button class="add-to-cart" data-id="10">Adicionar ao Carrinho</button>
-                </div>
-                <div class="product">
-                    <img src="https://th.bing.com/th/id/OIP.fypAVv_cZhbTs8LULmizWwAAAA?w=123&h=180&c=7&r=0&o=5&pid=1.7" alt="">
-                    <h3>Produto 11</h3>
-                    <p>Descrição do produto 11.</p>
-                    <button class="add-to-cart" data-id="10">Adicionar ao Carrinho</button>
-                </div>
-                <div class="product">
-                    <img src="https://th.bing.com/th/id/OIP.fypAVv_cZhbTs8LULmizWwAAAA?w=123&h=180&c=7&r=0&o=5&pid=1.7" alt="">
-                    <h3>Produto 12</h3>
-                    <p>Descrição do produto 12.</p>
-                    <button class="add-to-cart" data-id="10">Adicionar ao Carrinho</button>
-                </div>
-            </div>
-        </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cartItemsContainer = document.querySelector('.cart-items');
+            const totalPriceElement = document.querySelector('.total-price');
+            let totalPrice = 0;
 
-        <section id="cart">
-            <h2>Seu Carrinho</h2>
-            <table id="cart-items">
-                <thead>
-                    <tr>
-                        <th>Produto</th>
-                        <th>Quantidade</th>
-                        <th>Preço</th>
-                        <th>Total</th>
-                        <th>Remover</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Itens do carrinho serão adicionados aqui via JavaScript -->
-                </tbody>
-            </table>
-            <div id="cart-summary">
-                <p>Total: <span id="cart-total">R$0,00</span></p>
-                <button id="checkout">Finalizar Compra</button>
-            </div>
-        </section>
-    </main>
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', () => {
+                    const productElement = button.parentElement;
+                    const productName = productElement.querySelector('h2').innerText;
+                    const productPrice = parseFloat(productElement.querySelector('.price').innerText);
 
-    <script src="script.js"></script>
+                    const cartItem = document.createElement('div');
+                    cartItem.classList.add('cart-item');
+                    cartItem.innerHTML = `
+                        <h3>${productName}</h3>
+                        <p>Preço: R$ ${productPrice.toFixed(2)}</p>
+                        <button class="remove-from-cart">Remover</button>
+                    `;
+                    cartItemsContainer.appendChild(cartItem);
+
+                    totalPrice += productPrice;
+                    totalPriceElement.innerText = totalPrice.toFixed(2);
+
+                    cartItem.querySelector('.remove-from-cart').addEventListener('click', () => {
+                        cartItemsContainer.removeChild(cartItem);
+                        totalPrice -= productPrice;
+                        totalPriceElement.innerText = totalPrice.toFixed(2);
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 </html>
